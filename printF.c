@@ -50,4 +50,5 @@ int _printf(const char *format, ...)
 	}
 	va_end(restArgs);
 	return (num_of_char);
+
 }
