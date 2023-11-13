@@ -44,9 +44,3 @@ int _printf(const char *format, ...)
 	va_end(restArgs);
 	return (num_of_char);
 }
-
-int main(void)
-{
-	_printf("sequence should be same = %d %i %i %i\n", 10, 5, 05, 0x5);
-	return (0);
-}
