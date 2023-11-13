@@ -6,7 +6,7 @@
 #include <string.h>
 
 void printChar(const char character, int *num_of_char);
-void print_string(const char *str, int *num_of_char);
+void printStr(const char *str, int *num_of_char);
 int _printf(const char *format, ...);
 
 
