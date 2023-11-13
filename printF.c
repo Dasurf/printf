@@ -10,58 +10,44 @@
 
 int _printf(const char *format, ...)
 {
+	va_list restArgs;
 	int num_of_char = 0;
+	char *str, arg;
 
-	if (format != NULL)
+	if (format == NULL)
+		return (-1);
+	va_start(restArgs, format);
+	while (*format)
 	{
-		va_list restArgs;
-
-		va_start(restArgs, format);
-		while (*format)
+		if (*format != '%')
+			printChar(*format, &num_of_char);
+		else
 		{
-			if (*format != '%')
+			format++;
+			if (*format != '\0')
 			{
-				write(1, format, 1);
-				num_of_char++;
-			}
-			else
-			{
-				format++;
-				if (*format != '\0')
+				if (*format == '%')
 				{
-					if (*format == '%')
-					{
-						write(1, format, 1);
-						num_of_char++;
-					}
-
-					if (*format == 'c')
-					{
-						char arg = va_arg(restArgs, int);
-
-						write(1, &arg, 1);
-						num_of_char++;
-					}
-					else if (*format == 's')
-					{
-						char *str = va_arg(restArgs, char*);
-						int len = strlen(str);
-
-						write(1, str, len);
-					}
+					printChar(*format, &num_of_char);
+				}
+				else if (*format == 'c')
+				{
+					arg = va_arg(restArgs, int);
+					printChar(arg, &num_of_char);
+				}
+				else if (*format == 's')
+				{
+					str = va_arg(restArgs, char*);
+					print_string(str, &num_of_char);
 				}
 				else
-				{
-					write(1, format, 1);
-					num_of_char++;
-				}
+					printChar(*(format - 1), &num_of_char);
 			}
-			format++;
+			else
+				printChar(*format, &num_of_char);
 		}
+		format++;
 	}
-	else
-	{
-		return (-1);
-	}
+	va_end(restArgs);
 	return (num_of_char);
 }
