@@ -12,54 +12,41 @@ int _printf(const char *format, ...)
 {
 	va_list restArgs;
 	int num_of_char = 0;
-	char *str, arg;
 
 	if (format == NULL)
 		return (-1);
+
+
 	va_start(restArgs, format);
+
+
 	while (*format)
 	{
 		if (*format != '%')
+		{
 			printChar(*format, &num_of_char);
+		}
 		else
 		{
 			format++;
 			if (*format != '\0')
 			{
-				if (*format == '%')
-				{
-					printChar(*format, &num_of_char);
-				}
-				else if (*format == 'c')
-				{
-					arg = va_arg(restArgs, int);
-					printChar(arg, &num_of_char);
-				}
-				else if (*format == 's')
-				{
-					str = va_arg(restArgs, char*);
-					printStr(str, &num_of_char);
-				}
-				else
-					printChar(*(format - 1), &num_of_char);
+				checkFormatSpec(*format, restArgs, &num_of_char);
 			}
 			else
+			{
 				printChar(*format, &num_of_char);
+			}
 		}
 		format++;
 	}
+
 	va_end(restArgs);
 	return (num_of_char);
+}
 
-
-
-
-
-
-
-
-
-
-
-
+int main(void)
+{
+	_printf("sequence should be same = %d %i %i %i\n", 10, 5, 05, 0x5);
+	return (0);
 }
