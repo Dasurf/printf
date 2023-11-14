@@ -5,3 +5,4 @@ test*
 *.txt
 *.exe
 *.out
+main.c
