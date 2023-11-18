@@ -11,4 +11,5 @@ void printStr(const char *str, int *num_of_char);
 int _printf(const char *format, ...);
 void printNum(int num, int *num_of_char, int base);
 void checkFormatSpec(const char format, va_list restArgs, int *num_of_char);
+
 #endif /* MAIN_H */
